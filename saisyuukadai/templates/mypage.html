@@ -7,11 +7,11 @@
 </head>
 <body>
     <h3>マイページ</h3>
-    <form action="{{url_for('login')}}" method="post">
-        図書名：<input type="text" name="bookname">
-        <button type="submit">検索</button>
-    </form><br>
     <p>ようこそ</p><br>
-    <a href="{{url_for('logout')}}">ログアウト</a>
+    <form action="{{url_for('search')}}" method="GET">
+        <input type="text" name="keyword" placeholder="キーワードを入力">
+        <button type="submit">検索</button>
+    </form>
+        <a href="{{url_for('logout')}}">ログアウト</a>
 </body>
 </html>

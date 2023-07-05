@@ -13,6 +13,16 @@ def index():
         return render_template('index.html')
     else:
         return render_template('index.html', msg=msg)
+
+
+@app.route('/search', methods=['POST'])
+def search():
+    keyword = request.form.get('text')
+    if keyword:
+        results = db.search_books(keyword)
+        return render_template('search_results.html', results=results)
+    else:
+        return redirect(url_for('mypage'))
     
 @app.route('/', methods=['POST'])
 def login():
@@ -43,6 +53,7 @@ def mypage():
         return render_template('mypage.html')
     else:
         return redirect(url_for('index'))
+
 
 @app.route('/register')
 def register_form():
