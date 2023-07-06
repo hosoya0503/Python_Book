@@ -64,3 +64,26 @@ def login(user_name, password):
         connection.close()
         
     return flg
+
+
+def get_database_connection():
+    db_url = os.environ.get('DATABASE_URL')
+    return psycopg2.connect(db_url)
+
+def search_books(keyword):
+    conn = get_database_connection()
+    cur = conn.cursor()
+
+    query = "SELECT * FROM books WHERE title ILIKE '%{}%'".format(keyword)
+    cur.execute(query)
+    results = cur.fetchall()
+
+    cur.close()
+    conn.close()
+
+    return results
+
+def hash_password(password):
+    salt = ''.join(random.choices(string.ascii_letters + string.digits, k=8))
+    hashed_password = hashlib.sha256((password + salt).encode()).hexdigest()
+    return hashed_password, salt

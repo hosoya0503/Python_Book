@@ -23,7 +23,7 @@ def search():
         return render_template('search_results.html', results=results)
     else:
         return redirect(url_for('mypage'))
-    
+
 @app.route('/', methods=['POST'])
 def login():
     user_name = request.form.get('username')
